@@ -4,11 +4,27 @@
       <div class="invitation-cover">
         <div class="cover-content" :class="{'invitation-up':isOpening}">
           <div class="content-inside">
-            <img class="content-inside-photo" src="../images/photo.jpg">
+            <div class='content-swiper'>
+              <swiper :options="swiperOption" ref="mySwiper" @someSwiperEvent="callback">
+              <!-- slides -->
+              <swiper-slide>
+                <img class="content-inside-photo" src="../images/1.jpg">
+              </swiper-slide>
+              <swiper-slide>
+                <img class="content-inside-photo" src="../images/1.jpg">
+              </swiper-slide>
+              <!-- Optional controls -->
+              <div class="swiper-pagination"  slot="pagination"></div>
+              <!-- <div class="swiper-button-prev" slot="button-prev"></div>
+              <div class="swiper-button-next" slot="button-next"></div>
+              <div class="swiper-scrollbar"   slot="scrollbar"></div> -->
+              </swiper>
+            </div>
+            <!-- <img class="content-inside-photo" src="../images/photo.jpg"> -->
             <p>我们结婚啦！</p>
-            <p><b>Jun & undefined</b></p>
-            <p>时间：invalid date value</p>
-            <p>地点：<b>location can not be found</b></p>
+            <p><b>叶宇飞 & 盛佳丽</b></p>
+            <p>时间：2019年3月23日(周六)</p>
+            <p><b>地点</b>：<b>杭州市余杭区浙商开元名都大酒店-浙商厅</b></p>
             <input
               class="content-inside-input"
               placeholder="轻触写下祝福，按回车发送" 
@@ -30,14 +46,37 @@
 </template>
 
 <script>
+import 'swiper/dist/css/swiper.css'
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
+
 export default {
+  components: {
+    swiper,
+    swiperSlide
+  },
   props: ['canOpen'],
   data() {
     return {
       isOpening: false,
       wish: '',
       isFocused: false,
-      hasEntered: false
+      hasEntered: false,
+      swiperOption: {
+        pagination: {
+          el: ".swiper-pagination",
+          dynamicBullets: true
+        },
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false
+        }
+
+      }
+    }
+  },
+  computed: {
+    swiper() {
+      return this.$refs.mySwiper.swiper
     }
   },
   methods: {
@@ -59,6 +98,9 @@ export default {
         }, 660)
       })
     }
+  },
+  mounted() {
+      this.swiper.slideTo(3, 1000, false)
   }
 }
 </script>
@@ -122,14 +164,21 @@ export default {
             height: 100%;
             padding: 20px;
             color: #a9895d;
-            background-color: #FFF1DE;
+            background-image:url('../images/background.jpg');
+            background-repeat:no-repeat;
+            background-position:center;
+            background-size: cover;
+            //background-color: #FFF1DE;
             text-align: center;
             overflow: auto;
-            .content-inside-photo{
-              width: 100%;
-              margin-bottom: 10px;
-              padding: 5px;
-              border: 1px solid #f7debb;
+            .content-swiper{
+              .content-inside-photo{
+                height: 500px;
+                //width: 100%;
+                margin-bottom: 10px;
+                padding: 5px;
+                border: 1px solid #f7debb;
+              }
             }
             p{
               margin-top: 0;

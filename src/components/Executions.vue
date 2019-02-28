@@ -64,7 +64,7 @@
           await this.progressivelyRun(execution)
         }
         // 执行完命令，开始显示进度条
-        await this.successProcessing(1000)
+        await this.successProcessing(1500)
         // 执行最后一条命令
         await this.progressivelyRun(this.endExecution)
           .then(() => {
