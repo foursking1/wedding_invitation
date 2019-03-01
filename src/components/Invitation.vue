@@ -170,11 +170,10 @@ export default {
             background-size: cover;
             //background-color: #FFF1DE;
             text-align: center;
-            overflow: auto;
+            //overflow: auto;
             .content-swiper{
               .content-inside-photo{
-                height: 500px;
-                //width: 100%;
+                width: 70%;
                 margin-bottom: 10px;
                 padding: 5px;
                 border: 1px solid #f7debb;
