@@ -4,6 +4,7 @@ import VueTouch from 'vue-touch'
 import VueAxios from 'vue-axios'
 import axios from 'axios'
 
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -11,3 +12,4 @@ new Vue({
 })
 Vue.use(VueTouch, {name: 'v-touch'})
 Vue.use(VueAxios, axios);
+

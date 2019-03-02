@@ -2,8 +2,8 @@
   <div class="wedding-barrage" ref="barrage" :style="{opacity: canStart ? 1 : 0}">
     <div v-html="codeInStyleTag"></div>
     <p class="code barrage-0" ref="barrageFirst" :style="{transform:'translate('+initialOffset+'px)',top:'10px'}">
-      <span class="mine">{{ asdad }}</span>
-      <span v-for="(item, index) in filterBarrage(barrages, 0)" :key="index">{{ item }}</span>
+      <span class="mine">{{ wish }}</span>
+      <span  v-for="(item, index) in filterBarrage(barrages, 0)" :key="index">{{ item }}</span>
     </p>
     <p class="code barrage-1" ref="barrageSecond" :style="{transform:'translate('+initialOffset+'px)',top:'40px'}">
       <span v-for="(item, index) in filterBarrage(barrages, 1)" :key="index">{{ item }}</span>
@@ -20,15 +20,14 @@
 
 <script>
   export default {
-    props: ['wish', 'canStart'],
+    props: ['wish', 'canStart', 'barrages'],
     data(){
       return {
-        asdad: '',
-        barrages: ['ssss', 'ssss'],
         animationStyle:'',
         initialOffset: 0
       }
     },
+
     computed: {
       codeInStyleTag: function () {
         return `<style>${this.animationStyle}</style>`
@@ -36,22 +35,19 @@
     },
     watch: {
       canStart: function (val) {
-        this.getBarrages()
         if (val===true) {
           this.barrageAnimationStart()
+        }
+      },
+      isBarrages: function(val) {
+          if (val===true) {
+            this.barrageAnimationStart()
         }
       }
     },
 
-    methods: {
-      // 弹幕动画开始
-      getBarrages: function() {
-        this.axios.get('http://localhost:8081/get')
-  .             then(response => (this.asdad = response.data.bpi))
-        //this.barrages = ['sssss', 'ssssss']
-      },
 
-      
+    methods: {
       barrageAnimationStart() {
         let barrageWidth = this.getWidth(this.$refs.barrage)
         let barrageWidthGroup = [
@@ -83,6 +79,8 @@
         return window.getComputedStyle(ref,null).width.replace('px','') - 0
       },
       filterBarrage(barrages, remainder) {
+        console.log(barrages)
+        console.log(remainder)
         if(barrages){
           return barrages.filter((barrage, index) => {
             if(index%4 === remainder){

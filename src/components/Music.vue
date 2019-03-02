@@ -12,11 +12,12 @@
 export default {
     data() {
       return {
-          isOff:false
+          isOff: true
       }
     },
     components: {},
     created(){
+        
     },
     mounted() {
         // 自动播放音乐效果，解决微信自动播放问题
@@ -24,9 +25,11 @@ export default {
        document.addEventListener('WeixinJSBridgeReady', this.audioAutoPlay,false);
        let oAudio = document.querySelector("#audio");
         oAudio.onended = function () {//播放完毕，重新循环播放
-            oAudio.load();
+        oAudio.load();
             oAudio.play();
         }
+
+        
     },
     methods: { 
            changeOn(){
@@ -77,7 +80,7 @@ export default {
     z-index: 2000;
     top: 20px;
     right: 20px;
-    background: url("../images/music.png") 0 -28px no-repeat;
+    background: url("../images/music.png") 0 0 no-repeat;
     background-size:100%; 
 }
 </style>

@@ -37,10 +37,10 @@
             <p>我们结婚啦！</p>
             <p><b>叶宇飞 & 盛佳丽</b></p>
             <p>时间：2019年3月23日(周六)</p>
-            <p><b>地点</b>：<b>杭州市余杭区浙商开元名都大酒店-浙商厅</b></p>
+            <p><b>地点</b>：<b>杭州市余杭区<br>浙商开元名都大酒店-浙商厅</b></p>
             <input
               class="content-inside-input"
-              placeholder="轻触写下祝福，按回车发送" 
+              placeholder="留言有弹幕哦！！快来跟新娘新郎说点什么" 
               @keyup.enter="sendBarrage"
               @focus="isFocused = true"
               @blur="isFocused = false, hasEntered = false"
@@ -48,7 +48,7 @@
               ref="wishInput"
             >
             <button class="content-inside-button" @click="sendBarrage">发送</button>
-            <p v-if="!wish && isFocused && hasEntered">请输入祝福哦</p>
+            <p v-if="!wish && isFocused && hasEntered">留言有弹幕哦</p>
             <div class="arrow-up"></div>
           </div>
 
@@ -56,6 +56,7 @@
         </v-touch>
         <div class="cover-inside-left" :class="{'opening':isOpening}"></div>
         <div class="cover-inside-right" :class="{'opening':isOpening}"></div>
+        <img class="cover-inside-open" src="../images/seal2.png" @click="openInvitation" :class="{'invitation-flight':isOpening}">
         <img class="cover-inside-seal" src="../images/seal.png" @click="openInvitation" :class="{'invitation-flight':isOpening}">
       </div>
     </div>
@@ -120,6 +121,9 @@ export default {
     },
     // 发送弹幕
     sendBarrage(){
+      
+      this.axios.get("http://localhost:8081/add/" + this.wish)
+
       this.$nextTick(() => {
         this.hasEntered = true
         if (!this.wish) {
@@ -335,6 +339,20 @@ export default {
           height: 80px;
           margin-left: -40px;
           z-index: 7;
+          transform-origin: 50% 50%;
+          -webkit-transform-origin: 50% 50%;
+          transition: all 0.8s cubic-bezier(0.4, 0, 1, 1);
+          -webkit-transition: all 0.8s cubic-bezier(0.4, 0, 1, 1);
+          &.invitation-flight{
+            opacity: 0;
+          }
+        }
+
+        .cover-inside-open{
+          position: absolute;
+          top: 100px;
+          margin-left: 40px;
+          z-index: 9;
           transform-origin: 50% 50%;
           -webkit-transform-origin: 50% 50%;
           transition: all 0.8s cubic-bezier(0.4, 0, 1, 1);

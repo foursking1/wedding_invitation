@@ -13,7 +13,7 @@
     </pre>
     <Executions :canExecute="canExecute" @onUpdating="scrollToBottom" @onFinish="canOpen = true"/>
     <invitation :canOpen="canOpen" @sendBarrage="onAfterSending"/>
-    <Barrage :wish="wish" :canStart="canStart"/>
+    <Barrage :wish="wish" :canStart="canStart" :barrages="barrages"/>
     <Music/>
   </div>
 </template>
@@ -41,7 +41,8 @@
         canExecute: false,
         canOpen: false,
         wish: '',
-        canStart: false
+        canStart: false,
+        barrages: null
       }
     },
     created() {
@@ -62,6 +63,11 @@
       }
     },
     methods: {
+      getBarrages: function() {
+        this.axios.get("http://localhost:8081/get")
+          .then(response => (this.barrages = response.data.wishes, console.log("get")))
+      },
+
       scrollToBottom() {
         // 保持页面一直滚到最下面
         this.$refs.editor.scrollTop = 100000
@@ -96,6 +102,7 @@
       },
       // 发送弹幕之后
       onAfterSending(wish) {
+        this.getBarrages()
         this.wish = wish
         this.canOpen = false
         setTimeout(() => {

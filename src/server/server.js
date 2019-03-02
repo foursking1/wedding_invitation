@@ -2,11 +2,20 @@ var express = require('express');
 var app = express();
 var fs = require("fs");
 
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    res.header("X-Powered-By",' 3.2.1')
+    res.header("Content-Type", "application/json;charset=utf-8");
+    next();
+});
+
 app.get('/get', function (req, res) {
    // 首先我们读取已存在的用户
    fs.readFile( __dirname + "/" + "wishes.json", 'utf8', function (err, data) {
        console.log(data);
-       res.end( data);
+       res.send(data);
    });
 })
 
@@ -22,7 +31,7 @@ app.get('/add/:id', function (req, res) {
             }
             console.log("---添加弹幕---");
         })
-        res.end(str);
+        res.send(str);
     });
  })
 
