@@ -79,8 +79,6 @@
         return window.getComputedStyle(ref,null).width.replace('px','') - 0
       },
       filterBarrage(barrages, remainder) {
-        console.log(barrages)
-        console.log(remainder)
         if(barrages){
           return barrages.filter((barrage, index) => {
             if(index%4 === remainder){
