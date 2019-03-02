@@ -2,25 +2,38 @@
   <div class="wedding-invitation" :class="{ 'invitation-bounce':canOpen }">
     <div class="invitation-container" :class="{ 'invitation-down':isOpening }">
       <div class="invitation-cover">
+        
+        <v-touch v-on:swipeup="swiperleft" v-on:swipedown="swiperright" class="wrapper">
+        
+
         <div class="cover-content" :class="{'invitation-up':isOpening}">
-          <div class="content-inside">
-            <div class='content-swiper'>
-              <swiper :options="swiperOption" ref="mySwiper" @someSwiperEvent="callback">
-              <!-- slides -->
-              <swiper-slide>
-                <img class="content-inside-photo" src="../images/1.jpg">
-              </swiper-slide>
-              <swiper-slide>
-                <img class="content-inside-photo" src="../images/1.jpg">
-              </swiper-slide>
-              <!-- Optional controls -->
-              <div class="swiper-pagination"  slot="pagination"></div>
-              <!-- <div class="swiper-button-prev" slot="button-prev"></div>
-              <div class="swiper-button-next" slot="button-next"></div>
-              <div class="swiper-scrollbar"   slot="scrollbar"></div> -->
-              </swiper>
-            </div>
-            <!-- <img class="content-inside-photo" src="../images/photo.jpg"> -->
+
+          <div class='gallery-inside' v-show="isFirstPage">
+              <div class='content-swiper'>
+                <swiper :options="swiperOption" ref="mySwiper" @someSwiperEvent="callback">
+                <!-- slides -->
+                <swiper-slide>
+                  <img class="content-inside-photo" src="../images/1.jpg">
+                </swiper-slide>
+                <swiper-slide>
+                  <img class="content-inside-photo" src="../images/1.jpg">
+                </swiper-slide>
+                <!-- Optional controls -->
+                <div class="swiper-pagination"  slot="pagination"></div>
+                <!-- <div class="swiper-button-prev" slot="button-prev"></div>
+                <div class="swiper-button-next" slot="button-next"></div>
+                <div class="swiper-scrollbar"   slot="scrollbar"></div> -->
+                </swiper>
+              </div>
+
+              <div class="arrow-up">
+                <!-- background -->
+              </div>
+          </div>
+
+          <div class="content-inside" v-show="!isFirstPage">
+
+            <img class="content-inside-photo" src="../images/1.jpg">
             <p>我们结婚啦！</p>
             <p><b>叶宇飞 & 盛佳丽</b></p>
             <p>时间：2019年3月23日(周六)</p>
@@ -34,9 +47,13 @@
               v-model="wish"
               ref="wishInput"
             >
+            <button class="content-inside-button" @click="sendBarrage">发送</button>
             <p v-if="!wish && isFocused && hasEntered">请输入祝福哦</p>
+            <div class="arrow-up"></div>
           </div>
+
         </div>
+        </v-touch>
         <div class="cover-inside-left" :class="{'opening':isOpening}"></div>
         <div class="cover-inside-right" :class="{'opening':isOpening}"></div>
         <img class="cover-inside-seal" src="../images/seal.png" @click="openInvitation" :class="{'invitation-flight':isOpening}">
@@ -49,6 +66,7 @@
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 
+
 export default {
   components: {
     swiper,
@@ -57,6 +75,7 @@ export default {
   props: ['canOpen'],
   data() {
     return {
+      isFirstPage: true,
       isOpening: false,
       wish: '',
       isFocused: false,
@@ -84,6 +103,21 @@ export default {
     openInvitation(){
       this.isOpening = true
     },
+
+    swiperleft() {
+      if(this.isFirstPage == true) {
+        this.isFirstPage = false
+      } else {
+        this.isFirstPage = true
+      }
+    },
+    swiperright() {
+      if(this.isFirstPage == true) {
+        this.isFirstPage = false
+      } else {
+        this.isFirstPage = true
+      }
+    },
     // 发送弹幕
     sendBarrage(){
       this.$nextTick(() => {
@@ -97,7 +131,7 @@ export default {
           this.$emit('sendBarrage', this.wish)
         }, 660)
       })
-    }
+    },
   },
   mounted() {
       this.swiper.slideTo(3, 1000, false)
@@ -160,7 +194,42 @@ export default {
             transform: translateY(-60px);
             -webkit-transform: translateY(-60px);
           }
+          .gallery-inside{
+            height: 100%;
+            padding: 20px;
+            color: #a9895d;
+            background-image:url('../images/background.jpg');
+            background-repeat:no-repeat;
+            background-position:center;
+            background-size: cover;
+            //background-color: #FFF1DE;
+            text-align: center;
+            .content-swiper{
+              .content-inside-photo{
+                margin-bottom: 10px;
+                padding: 5px;
+                border: 1px solid #f7debb;
+              }
+            }
+            .arrow-up{
+              position: absolute;
+              margin-left: auto;
+              left: 0;
+              right: 0;
+              height: 5%;
+              bottom: 0;
+              margin-bottom: 20px;
+              text-align: center;
+              background-size: contain;
+              background-repeat: no-repeat;
+              background-position: center;
+              background-image: url('../images/up.png');
+              opacity:0.7;
+            }
+          }
+
           .content-inside{
+            display: block;
             height: 100%;
             padding: 20px;
             color: #a9895d;
@@ -171,24 +240,23 @@ export default {
             //background-color: #FFF1DE;
             text-align: center;
             //overflow: auto;
-            .content-swiper{
-              .content-inside-photo{
-                width: 70%;
-                margin-bottom: 10px;
-                padding: 5px;
-                border: 1px solid #f7debb;
-              }
-            }
             p{
               margin-top: 0;
               margin-bottom: 5px;
             }
+            .content-inside-photo{
+              width: 70%;
+              margin-bottom: 10px;
+              padding: 5px;
+              border: 1px solid #f7debb;
+            }
             .content-inside-input{
-              width: 100%;
-              height: 35px;
-              margin-top: 10px;
-              outline: none;
-              border: none;
+              display: inline-block;
+              width: 80%;
+              // height: 35px;
+              // margin-top: 10px;
+              // outline: none;
+              // border: none;
               border-bottom: 1px solid #f7debb;
               color: #a9895d;
               background: transparent;
@@ -196,6 +264,28 @@ export default {
               &::-moz-placeholder { color: #E8D1B1;font-size: 12px; }
               &:-ms-input-placeholder { color: #E8D1B1;font-size: 12px; }
               &:-moz-placeholder { color: #E8D1B1;font-size: 12px; }
+            }
+            .content-inside-button {
+              outline: none;
+              border: none;
+              background-color:  #a9895d;
+              margin-top: 2px;
+              margin-left: 10px;
+            }
+            .arrow-up{
+              position: absolute;
+              margin-left: auto;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              margin-bottom: 20px;
+              height: 5%;
+              text-align: center;
+              background-size: contain;
+              background-repeat: no-repeat;
+              background-position: center;
+              background-image: url('../images/up.png');
+              opacity:0.7;
             }
           }
         }
@@ -256,4 +346,5 @@ export default {
       }
     }
   }
+  
 </style>

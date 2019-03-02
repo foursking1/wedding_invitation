@@ -2,7 +2,7 @@
   <div class="wedding-barrage" ref="barrage" :style="{opacity: canStart ? 1 : 0}">
     <div v-html="codeInStyleTag"></div>
     <p class="code barrage-0" ref="barrageFirst" :style="{transform:'translate('+initialOffset+'px)',top:'10px'}">
-      <span class="mine">{{ wish }}</span>
+      <span class="mine">{{ asdad }}</span>
       <span v-for="(item, index) in filterBarrage(barrages, 0)" :key="index">{{ item }}</span>
     </p>
     <p class="code barrage-1" ref="barrageSecond" :style="{transform:'translate('+initialOffset+'px)',top:'40px'}">
@@ -19,13 +19,12 @@
 </template>
 
 <script>
-  import data from '../mock/data'
-
   export default {
     props: ['wish', 'canStart'],
     data(){
       return {
-        barrages: data.barrages,
+        asdad: '',
+        barrages: ['ssss', 'ssss'],
         animationStyle:'',
         initialOffset: 0
       }
@@ -37,13 +36,22 @@
     },
     watch: {
       canStart: function (val) {
+        this.getBarrages()
         if (val===true) {
           this.barrageAnimationStart()
         }
       }
     },
+
     methods: {
       // 弹幕动画开始
+      getBarrages: function() {
+        this.axios.get('http://localhost:8081/get')
+  .             then(response => (this.asdad = response.data.bpi))
+        //this.barrages = ['sssss', 'ssssss']
+      },
+
+      
       barrageAnimationStart() {
         let barrageWidth = this.getWidth(this.$refs.barrage)
         let barrageWidthGroup = [

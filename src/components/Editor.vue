@@ -14,6 +14,7 @@
     <Executions :canExecute="canExecute" @onUpdating="scrollToBottom" @onFinish="canOpen = true"/>
     <invitation :canOpen="canOpen" @sendBarrage="onAfterSending"/>
     <Barrage :wish="wish" :canStart="canStart"/>
+    <Music/>
   </div>
 </template>
 
@@ -26,10 +27,11 @@
   import Executions from './Executions'
   import Invitation from './Invitation'
   import Barrage from './Barrage'
+  import Music from './Music'
 
   export default {
     name: 'Editor',
-    components: { Executions, Invitation, Barrage },
+    components: { Executions, Invitation, Barrage, Music },
     data() {
       return {
         startDate: '',
