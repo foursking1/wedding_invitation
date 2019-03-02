@@ -65,7 +65,7 @@
     methods: {
       getBarrages: function() {
         this.axios.get("http://localhost:8081/get")
-          .then(response => (this.barrages = response.data.wishes, console.log("get")))
+          .then(response => (this.barrages = response.data.wishes))
       },
 
       scrollToBottom() {
