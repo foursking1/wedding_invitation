@@ -7,7 +7,8 @@
         
 
         <div class="cover-content" :class="{'invitation-up':isOpening}">
-
+          
+          <transition name="fade">
           <div class='gallery-inside' v-show="isFirstPage">
               <div class='content-swiper'>
                 <swiper :options="swiperOption" ref="mySwiper" @someSwiperEvent="callback">
@@ -16,7 +17,7 @@
                   <img class="content-inside-photo" src="https://note.youdao.com/yws/api/personal/file/WEB2875f4e1ec3682ab6bf6d96602edff17?method=download&shareKey=0c57b9ee5207cd1583115237db96584d">
                 </swiper-slide>
                 <swiper-slide>
-                  <img class="content-inside-photo" src="https://note.youdao.com/yws/api/personal/file/WEB1508b251c125d98a184e557a6489b560?method=download&shareKey=689bf4ef89d40d72633ece38ca969e32">
+                  <img class="content-inside-photo" src="https://note.youdao.com/yws/api/personal/file/WEB90520684209dbc1a43c908398aaac388?method=download&shareKey=bd748a3f5be4e941dddae8b156c0019b">
                 </swiper-slide>
                 <swiper-slide>
                   <img class="content-inside-photo" src="https://note.youdao.com/yws/api/personal/file/WEB5a2c5286519893f7aec68eaa2f7e3759?method=download&shareKey=e76d96a46056757f741c46ae8d4ad3b2">
@@ -33,16 +34,20 @@
                 <!-- Optional controls -->
                 <div class="swiper-pagination"  slot="pagination"></div>
                 <!-- <div class="swiper-button-prev" slot="button-prev"></div>
-                <div class="swiper-button-next" slot="button-next"></div>
-                <div class="swiper-scrollbar"   slot="scrollbar"></div> -->
+                <div class="swiper-button-next" slot="button-next"></div> -->
+                <div class="swiper-scrollbar"   slot="scrollbar"></div>
                 </swiper>
               </div>
+
+              <p><b>叶宇飞</b>，金牛座，急性子<br>爱打篮球，爱吃美食<br><b>盛佳丽</b>，天枰座，慢性子<br>爱做瑜伽，爱吃新郎做的美食</p>
 
               <div class="arrow-up">
                 <!-- background -->
               </div>
           </div>
+          </transition>
 
+          <transition name="fade">
           <div class="content-inside" v-show="!isFirstPage">
 
             <img class="content-inside-photo" src="https://note.youdao.com/yws/api/personal/file/WEB16bc5be3611203060ea53eb9b48339c2?method=download&shareKey=19fb4c3cd6021fed8201db399973a285">
@@ -63,6 +68,7 @@
             <p v-if="!wish && isFocused && hasEntered">留言有弹幕哦</p>
             <div class="arrow-up"></div>
           </div>
+          </transition>
 
         </div>
         </v-touch>
@@ -99,7 +105,7 @@ export default {
           dynamicBullets: true
         },
         autoplay: {
-          delay: 2500,
+          delay: 5000,
           disableOnInteraction: false
         }
 
@@ -156,6 +162,23 @@ export default {
 </script>
 
 <style lang="less">
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity 1s;
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+  }
+
+  .swiper-pagination-bullet-active {
+     background-color: #a2a8a8d2;
+  }
+
+  .swiper-pagination-bullet {
+    background-color: #ffffffd2;
+    opacity: 0.8;
+  }
+
   .wedding-invitation{
     position: fixed;
     top: 0;
@@ -210,8 +233,13 @@ export default {
             transform: translateY(-60px);
             -webkit-transform: translateY(-60px);
           }
+
           .gallery-inside{
+            position: absolute;
             height: 100%;
+            // z-index: 100;
+            width: 100%;
+            // height: 100%;
             padding: 20px;
             color: #a9895d;
             background-image:url('../images/background.jpg');
@@ -221,7 +249,10 @@ export default {
             //background-color: #FFF1DE;
             text-align: center;
             .content-swiper{
+              margin-left: -20px;
               .content-inside-photo{
+                
+                width: 80%;
                 margin-bottom: 10px;
                 padding: 5px;
                 border: 1px solid #f7debb;
@@ -234,7 +265,7 @@ export default {
               right: 0;
               height: 5%;
               bottom: 0;
-              margin-bottom: 20px;
+              margin-bottom: 10px;
               text-align: center;
               background-size: contain;
               background-repeat: no-repeat;
@@ -245,7 +276,7 @@ export default {
           }
 
           .content-inside{
-            display: block;
+            position: absolute;
             height: 100%;
             padding: 20px;
             color: #a9895d;
@@ -376,5 +407,7 @@ export default {
       }
     }
   }
+
+
   
 </style>
