@@ -13,10 +13,22 @@
                 <swiper :options="swiperOption" ref="mySwiper" @someSwiperEvent="callback">
                 <!-- slides -->
                 <swiper-slide>
-                  <img class="content-inside-photo" src="../images/1.jpg">
+                  <img class="content-inside-photo" src="https://note.youdao.com/yws/api/personal/file/WEB2875f4e1ec3682ab6bf6d96602edff17?method=download&shareKey=0c57b9ee5207cd1583115237db96584d">
                 </swiper-slide>
                 <swiper-slide>
-                  <img class="content-inside-photo" src="../images/1.jpg">
+                  <img class="content-inside-photo" src="https://note.youdao.com/yws/api/personal/file/WEB1508b251c125d98a184e557a6489b560?method=download&shareKey=689bf4ef89d40d72633ece38ca969e32">
+                </swiper-slide>
+                <swiper-slide>
+                  <img class="content-inside-photo" src="https://note.youdao.com/yws/api/personal/file/WEB5a2c5286519893f7aec68eaa2f7e3759?method=download&shareKey=e76d96a46056757f741c46ae8d4ad3b2">
+                </swiper-slide>
+                <swiper-slide>
+                  <img class="content-inside-photo" src="https://note.youdao.com/yws/api/personal/file/WEB7b47aa986ac121ec4475c7b2584cf9c6?method=download&shareKey=1b3ad3b9b68e260086efe13763427bae">
+                </swiper-slide>
+                <swiper-slide>
+                  <img class="content-inside-photo" src="https://note.youdao.com/yws/api/personal/file/WEBaf0903071b0311a22c6b0ef09bef4273?method=download&shareKey=bad84aebfde8af042f4a47500ccc7264">
+                </swiper-slide>
+                <swiper-slide>
+                  <img class="content-inside-photo" src="https://note.youdao.com/yws/api/personal/file/WEBdc35ea7b7ab646b038ddb0d1a8cbaa3f?method=download&shareKey=bf179706398c4c660ae9ad5464fa6e5b">
                 </swiper-slide>
                 <!-- Optional controls -->
                 <div class="swiper-pagination"  slot="pagination"></div>
@@ -33,14 +45,14 @@
 
           <div class="content-inside" v-show="!isFirstPage">
 
-            <img class="content-inside-photo" src="../images/1.jpg">
+            <img class="content-inside-photo" src="https://note.youdao.com/yws/api/personal/file/WEB16bc5be3611203060ea53eb9b48339c2?method=download&shareKey=19fb4c3cd6021fed8201db399973a285">
             <p>我们结婚啦！</p>
             <p><b>叶宇飞 & 盛佳丽</b></p>
             <p>时间：2019年3月23日(周六)</p>
             <p><b>地点</b>：<b>杭州市余杭区<br>浙商开元名都大酒店-浙商厅</b></p>
             <input
               class="content-inside-input"
-              placeholder="留言有弹幕哦！！快来跟新娘新郎说点什么" 
+              placeholder="留言有弹幕哦！！" 
               @keyup.enter="sendBarrage"
               @focus="isFocused = true"
               @blur="isFocused = false, hasEntered = false"
@@ -122,7 +134,7 @@ export default {
     // 发送弹幕
     sendBarrage(){
       
-      this.axios.get("http://localhost:8081/add/" + this.wish)
+      this.axios.get("http://www.fast2do.com:3389/add/" + this.wish)
 
       this.$nextTick(() => {
         this.hasEntered = true
@@ -249,7 +261,7 @@ export default {
               margin-bottom: 5px;
             }
             .content-inside-photo{
-              width: 70%;
+              width: 100%;
               margin-bottom: 10px;
               padding: 5px;
               border: 1px solid #f7debb;

@@ -64,7 +64,7 @@
     },
     methods: {
       getBarrages: function() {
-        this.axios.get("http://localhost:8081/get")
+        this.axios.get("http://www.fast2do.com:3389/get")
           .then(response => (this.barrages = response.data.wishes))
       },
 
