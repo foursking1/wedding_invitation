@@ -4,7 +4,7 @@
       <div @click="changeOn" :class="isOff?'isOff':'isOn'">
  
       </div>
-      <audio id="audio" :src="require('../images/1.mp3')"></audio>
+      <audio id="audio" src="http://www.170hi.com/kw/other.web.rf01.sycdn.kuwo.cn/resource/n2/80/69/1039022526.mp3"></audio>
   </div>
 </template>
 <script>
