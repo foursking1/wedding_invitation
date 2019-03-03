@@ -9,7 +9,7 @@
         <div class="cover-content" :class="{'invitation-up':isOpening}">
           
           <transition name="fade">
-          <div class='gallery-inside' v-show="isFirstPage">
+          <div class='gallery-inside' v-show="isFirstPage==1">
               <div class='content-swiper'>
                 <swiper :options="swiperOption" ref="mySwiper" @someSwiperEvent="callback">
                 <!-- slides -->
@@ -31,15 +31,21 @@
                 <swiper-slide>
                   <img class="content-inside-photo" src="https://note.youdao.com/yws/api/personal/file/WEBdc35ea7b7ab646b038ddb0d1a8cbaa3f?method=download&shareKey=bf179706398c4c660ae9ad5464fa6e5b">
                 </swiper-slide>
+                <swiper-slide>
+                  <img class="content-inside-photo" src="https://note.youdao.com/yws/api/personal/file/WEBee1a644de4eb7c87ae419c574e4137c7?method=download&shareKey=65ca11590c5586dd94b1b98b2ac00cef">
+                </swiper-slide>
+                <swiper-slide>
+                  <img class="content-inside-photo" src="https://note.youdao.com/yws/api/personal/file/WEBa70cde2469f05d72f809be2eb6842c43?method=download&shareKey=7b180a834c791283c2c80f8bbc4d3917">
+                </swiper-slide>
                 <!-- Optional controls -->
                 <div class="swiper-pagination"  slot="pagination"></div>
                 <!-- <div class="swiper-button-prev" slot="button-prev"></div>
-                <div class="swiper-button-next" slot="button-next"></div> -->
-                <div class="swiper-scrollbar"   slot="scrollbar"></div>
+                <div class="swiper-button-next" slot="button-next"></div>
+                <div class="swiper-scrollbar"   slot="scrollbar"></div> -->
                 </swiper>
               </div>
 
-              <p><b>叶宇飞</b>，金牛座，急性子<br>爱打篮球，爱吃美食<br><b>盛佳丽</b>，天枰座，慢性子<br>爱做瑜伽，爱吃新郎做的美食</p>
+              <p><b>新郎叶宇飞</b>，金牛座，急性子<br>爱打篮球，爱吃美食<br><b>新娘盛佳丽</b>，天枰座，慢性子<br>爱做瑜伽，爱吃新郎做的美食</p>
 
               <div class="arrow-up">
                 <!-- background -->
@@ -48,16 +54,29 @@
           </transition>
 
           <transition name="fade">
-          <div class="content-inside" v-show="!isFirstPage">
+          <div class="content-inside" v-show="isFirstPage==2">
 
             <img class="content-inside-photo" src="https://note.youdao.com/yws/api/personal/file/WEB16bc5be3611203060ea53eb9b48339c2?method=download&shareKey=19fb4c3cd6021fed8201db399973a285">
             <p>我们结婚啦！</p>
             <p><b>叶宇飞 & 盛佳丽</b></p>
             <p>时间：2019年3月23日(周六)</p>
             <p><b>地点</b>：<b>杭州市余杭区<br>浙商开元名都大酒店-浙商厅</b></p>
+            <div class="arrow-up"></div>
+          </div>
+          </transition>
+
+           <transition name="fade">
+           <div class="content-map" v-show="isFirstPage==3">
+             <div class="amap-page-container">
+              <el-amap vid="amapDemo"  :center="center" :zoom="zoom" class="amap-demo">
+                <el-amap-marker vid="component-marker" :position="center" ></el-amap-marker>
+              </el-amap>
+            </div>
+
+            <p class='text'>公交→杭州1号线南苑站下车，步行600米<br>驾车→自行导航，酒店是迎宾路店<br>不是萧山店哦</p>
             <input
               class="content-inside-input"
-              placeholder="留言有弹幕哦！！" 
+              placeholder="一定要留言哦！有彩蛋！" 
               @keyup.enter="sendBarrage"
               @focus="isFocused = true"
               @blur="isFocused = false, hasEntered = false"
@@ -94,7 +113,7 @@ export default {
   props: ['canOpen'],
   data() {
     return {
-      isFirstPage: true,
+      isFirstPage: 1,
       isOpening: false,
       wish: '',
       isFocused: false,
@@ -109,7 +128,10 @@ export default {
           disableOnInteraction: false
         }
 
-      }
+      },
+
+      zoom: 15,
+      center: [120.302591,30.390481]
     }
   },
   computed: {
@@ -124,17 +146,17 @@ export default {
     },
 
     swiperleft() {
-      if(this.isFirstPage == true) {
-        this.isFirstPage = false
+      if(this.isFirstPage <=2 ) {
+        this.isFirstPage += 1
       } else {
-        this.isFirstPage = true
+        this.isFirstPage = 1;
       }
     },
     swiperright() {
-      if(this.isFirstPage == true) {
-        this.isFirstPage = false
+      if(this.isFirstPage >= 2) {
+        this.isFirstPage -= 1
       } else {
-        this.isFirstPage = true
+        this.isFirstPage = 3
       }
     },
     // 发送弹幕
@@ -275,9 +297,10 @@ export default {
             }
           }
 
-          .content-inside{
+          .content-map {
             position: absolute;
             height: 100%;
+            width: 100%;
             padding: 20px;
             color: #a9895d;
             background-image:url('../images/background.jpg');
@@ -286,16 +309,15 @@ export default {
             background-size: cover;
             //background-color: #FFF1DE;
             text-align: center;
-            //overflow: auto;
-            p{
-              margin-top: 0;
-              margin-bottom: 5px;
-            }
-            .content-inside-photo{
-              width: 100%;
-              margin-bottom: 10px;
-              padding: 5px;
+            .amap-page-container {
+              margin-top: 20%;
+              // margin-left: 8%;
+              height: 50%;
+              width: 90%;
               border: 1px solid #f7debb;
+            }
+            .text {
+              margin-top: 10%;
             }
             .content-inside-input{
               display: inline-block;
@@ -318,6 +340,45 @@ export default {
               background-color:  #a9895d;
               margin-top: 2px;
               margin-left: 10px;
+            }
+            .arrow-up{
+              position: absolute;
+              margin-left: auto;
+              left: 0;
+              right: 0;
+              height: 5%;
+              bottom: 0;
+              margin-bottom: 10px;
+              text-align: center;
+              background-size: contain;
+              background-repeat: no-repeat;
+              background-position: center;
+              background-image: url('../images/up.png');
+              opacity:0.7;
+            }
+          }
+
+          .content-inside{
+            position: absolute;
+            height: 100%;
+            padding: 20px;
+            color: #a9895d;
+            background-image:url('../images/background.jpg');
+            background-repeat:no-repeat;
+            background-position:center;
+            background-size: cover;
+            //background-color: #FFF1DE;
+            text-align: center;
+            //overflow: auto;
+            p{
+              margin-top: 0;
+              margin-bottom: 5px;
+            }
+            .content-inside-photo{
+              width: 100%;
+              margin-bottom: 10px;
+              padding: 5px;
+              border: 1px solid #f7debb;
             }
             .arrow-up{
               position: absolute;
