@@ -59,8 +59,8 @@
             <img class="content-inside-photo" src="https://note.youdao.com/yws/api/personal/file/WEB16bc5be3611203060ea53eb9b48339c2?method=download&shareKey=19fb4c3cd6021fed8201db399973a285">
             <p>我们结婚啦！</p>
             <p><b>叶宇飞 & 盛佳丽</b></p>
-            <p>时间：2019年3月23日(周六)</p>
-            <p><b>地点</b>：<b>杭州市余杭区<br>浙商开元名都大酒店-浙商厅</b></p>
+            <p>时间：2019年4月20日(周六)， 晚上6点</p>
+            <p><b>地点</b>：<b>丽水市莲都区<br>东方文廷酒店5楼万华厅</b></p>
             <div class="arrow-up"></div>
           </div>
           </transition>
@@ -73,7 +73,7 @@
               </el-amap>
             </div>
 
-            <p class='text'>公交→杭州1号线南苑站下车，步行600米<br>驾车→自行导航，酒店是迎宾路店<br>不是萧山店哦</p>
+            <!-- <p class='text'>公交→杭州1号线南苑站下车，步行600米<br>驾车→自行导航，酒店是迎宾路店<br>不是萧山店哦</p> -->
             <input
               class="content-inside-input"
               placeholder="一定要留言哦！有彩蛋！" 
@@ -131,7 +131,7 @@ export default {
       },
 
       zoom: 15,
-      center: [120.302591,30.390481]
+      center: [119.92,28.46]
     }
   },
   computed: {
