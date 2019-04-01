@@ -73,7 +73,7 @@
               </el-amap>
             </div>
 
-            <!-- <p class='text'>公交→杭州1号线南苑站下车，步行600米<br>驾车→自行导航，酒店是迎宾路店<br>不是萧山店哦</p> -->
+            <p class='text'>丽水市政府附近</p>
             <input
               class="content-inside-input"
               placeholder="一定要留言哦！有彩蛋！" 
@@ -131,7 +131,7 @@ export default {
       },
 
       zoom: 15,
-      center: [119.92,28.46]
+      center: [119.924624,28.463932]
     }
   },
   computed: {
